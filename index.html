@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget</title>
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <!--This is the side menu to track your expenses-->
+    <div>
+        <ul title="Months" class="months">
+            <li>January</li>
+            <li>February</li>
+            <li>March</li>
+            <li>April</li>
+            <li>May</li>
+            <li>June</li>
+            <li>July</li>
+            <li>August</li>
+            <li>September</li>
+            <li>October</li>
+            <li>November</li>
+            <li>December</li>
+          </ul>
+    </div>
+
+    <!--This is where the first months calculations are displayed-->
+    <div class="budget">
+        <!--expense section-->
+        <section id="expense">
+
+        </section>
+        
+        <!--income section-->
+        <section id="income">
+            <!--Where to add any new incomes-->
+            <form action="" class="new-income">
+                <div class="new-income">
+                    <!--The name of the source of the income-->
+                    <label for="income-source">Source: </label>
+                    <input type="text" name="income-source" id="income-source" required/>
+                </div>
+
+                <div class="new-income">
+                    <!--The amount of the income recieved-->
+                    <label for="income-amount">Amount: $</label>
+                    <input type="text" name="income-amount" id="income-amount" required/>
+                </div>
+
+                <div class="new-income">
+                    <input type="submit" value="Add">
+                </div>
+            </form>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="income-table">
+                    
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

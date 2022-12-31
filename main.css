@@ -1,0 +1,15 @@
+body {
+    display: flex;
+}
+
+.months {
+    list-style-type: none;
+    width: 150px;
+    background-color: aqua;
+}
+
+.budget {
+    flex-grow: 1;
+    width: 1000px;
+    background-color: crimson;
+}
