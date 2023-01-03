@@ -69,7 +69,7 @@ function amountSum (table, totalLocation, sumCol) {
     total.textContent = '';
     let sum = 0;
 
-    // move through 
+    // move through the column to sum up
     for (let i = 1; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName('td');
 
@@ -78,5 +78,6 @@ function amountSum (table, totalLocation, sumCol) {
         sum += parseInt(cell.textContent);
     }
 
-    total.textContent = "Total Income: " + sum;
+    // display the new sum on the total line
+    total.textContent = "Total Income: $" + sum;
 }
