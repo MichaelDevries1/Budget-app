@@ -13,3 +13,11 @@ body {
     width: 1000px;
     background-color: crimson;
 }
+
+.remove-button {
+    display: none;
+}
+
+tr:hover .remove-button {
+    display: inline-block;
+}
