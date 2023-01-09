@@ -1,3 +1,5 @@
+regex-previewer.enableCodeLense;
+
 // TODO add border for the menu
 // TODO make a way to input and track expenses
 // TODO make a way to input and track incomes
@@ -46,6 +48,8 @@ incomeSubmit.addEventListener("click", function(event) {
 
         // Remove the row from the table
         row.parentElement.removeChild(row);
+
+        amountSum(incomeTable, 'income-total', 1);
     })
 
     // Add the cells and button to the row
@@ -80,4 +84,8 @@ function amountSum (table, totalLocation, sumCol) {
 
     // display the new sum on the total line
     total.textContent = "Total Income: $" + sum;
+}
+
+function verifyCurrency () {
+    const regex = /^\d+(\.\d{1,2})?$/;
 }

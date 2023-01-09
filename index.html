@@ -32,12 +32,37 @@
     <div class="budget">
         <!--expense section-->
         <section id="expense">
+            <!--Where to add any new expenses-->
+            <h2>EXPENSES</h2>
 
+            <div>
+                <div class="new-expense">
+                    <!--The date of the expense-->
+                    <label for="expense-date">Date:</label>
+                    <input type="date" name="expense-date" id="expense-date" min="2020-01-01">
+                </div>
+
+                <div class="new-expense">
+                   <!--The name of the source of the expense-->
+                   <label for="expense-source">Source: </label>
+                   <input type="text" name="expense-source" id="expense-source" required> 
+                </div>
+
+                <div class="new-expense">
+                    <!--The amount spent-->
+                </div>
+
+                <div class="new-expense">
+                    <button id="expense-submit">Add</button>
+                </div>
+            </div>
         </section>
         
         <!--income section-->
         <section id="income">
             <!--Where to add any new incomes-->
+            <h2>INCOME</h2>
+            
             <div>
                 <div class="new-income">
                     <!--The name of the source of the income-->
