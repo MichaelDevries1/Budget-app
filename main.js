@@ -8,16 +8,36 @@ regex-previewer.enableCodeLense;
 // TODO make input form 
 // TODO create categories for the types of expenses
 // TODO allow modification of the categories for future changes
+// TODO make a storage for expense categories
+// TODO make expense categories editable
+// TODO Make a summary update
+
+// Retrieves the expense information provided by user from the form
+const expenseSubmit = document.getElementById('expense-submit');
+
+expenseSubmit.addEventListener("click", function(event) {
+    event.preventDefault;
+
+    // get required elements
+    const expenseDate = document.getElementById('expense-date');
+    const expenseSource = document.getElementById('expense-source');
+    const expenseAmount = document.getElementById('expense-amount');
+    const expenseCategory = document.getElementById('expense-category');
+
+    // get the values from the form
+    const date = expenseDate.value;
+})
 
 // Retrieves the income information provided by user from the form
 const incomeSubmit = document.getElementById('income-submit');
-const incomeSource = document.getElementById('income-source');
-const incomeAmount = document.getElementById('income-amount');
-const incomeTable = document.getElementById('income-table');
-const incomeTotal = document.getElementById('income-total');
 
 incomeSubmit.addEventListener("click", function(event) {
     event.preventDefault;
+
+    // get required elements
+    const incomeSource = document.getElementById('income-source');
+    const incomeAmount = document.getElementById('income-amount');
+    const incomeTable = document.getElementById('income-table');
 
     // Get the values of the form
     const source = incomeSource.value;
@@ -49,6 +69,7 @@ incomeSubmit.addEventListener("click", function(event) {
         // Remove the row from the table
         row.parentElement.removeChild(row);
 
+        // Update the running sum
         amountSum(incomeTable, 'income-total', 1);
     })
 

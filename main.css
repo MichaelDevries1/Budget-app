@@ -10,8 +10,17 @@ body {
 
 .budget {
     flex-grow: 1;
-    width: 1000px;
+    width: 1500px;
     background-color: rgb(241, 182, 194);
+    display: flex;
+}
+
+.expense {
+    width: 50%;
+}
+
+.income {
+    width: 50%;
 }
 
 .remove-button {

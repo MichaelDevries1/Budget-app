@@ -35,47 +35,80 @@
             <!--Where to add any new expenses-->
             <h2>EXPENSES</h2>
 
+            <!--Expense input fields-->
             <div>
-                <div class="new-expense">
-                    <!--The date of the expense-->
+                <!--The date of the expense-->
+                <div class="new-expense">                    
                     <label for="expense-date">Date:</label>
                     <input type="date" name="expense-date" id="expense-date" min="2020-01-01">
                 </div>
 
-                <div class="new-expense">
-                   <!--The name of the source of the expense-->
+                <!--The name of the source of the expense-->
+                <div class="new-expense">                   
                    <label for="expense-source">Source: </label>
                    <input type="text" name="expense-source" id="expense-source" required> 
                 </div>
 
+                <!--The amount spent-->
                 <div class="new-expense">
-                    <!--The amount spent-->
+                    <label for="expense-amount">Amount: </label>
+                    <input type="text" name="expense-amount" id="expense-amount">
                 </div>
 
+                <!--The category of the expense-->
+                <div class="new-expense">
+                    <label for="expense-category">Category: </label>
+                    <select name="expense-category" id="expense-category">
+                        <option value="housing-category">Housing</option>
+                        <option value="utilities-category">Utilities</option>
+                        <option value="transportation-category">Transportation</option>
+                        <option value="insurance-category">Insurance</option>
+                    </select>
+                </div>
+
+                <!--Expense submit button-->
                 <div class="new-expense">
                     <button id="expense-submit">Add</button>
                 </div>
             </div>
+
+            <!--Total Expenses-->
+            <div id="expense-total">
+                <p></p>
+            </div>
+
+            <!--Table describing expense information-->
+            <table id="expense-table">
+                <!--Headers of the table-->
+                <tr>
+                    <th>Date</th>
+                    <th>Source</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                </tr>
+            </table>
         </section>
         
         <!--income section-->
         <section id="income">
             <!--Where to add any new incomes-->
             <h2>INCOME</h2>
-            
+
+            <!--Income Input Fields-->
             <div>
-                <div class="new-income">
-                    <!--The name of the source of the income-->
+                <!--The name of the source of the income-->
+                <div class="new-income">                    
                     <label for="income-source">Source: </label>
                     <input type="text" name="income-source" id="income-source" required/>
                 </div>
 
-                <div class="new-income">
-                    <!--The amount of the income recieved-->
+                <!--The amount of the income recieved-->
+                <div class="new-income">                    
                     <label for="income-amount">Amount: $</label>
                     <input type="text" name="income-amount" id="income-amount" required/>
-                </div>
+                </div>                
 
+                <!--Income submit button-->
                 <div class="new-income">
                     <Button id="income-submit">Add</Button> 
                 </div>
@@ -86,7 +119,9 @@
                 <p></p>
             </div>
 
+            <!--Table describing the source and amount of income-->
             <table id="income-table">
+                <!--Headers of table-->
                 <tr>
                     <th>Source</th>
                     <th>Amount</th>
