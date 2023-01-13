@@ -1,5 +1,3 @@
-regex-previewer.enableCodeLense;
-
 // TODO add border for the menu
 // TODO make a way to input and track expenses
 // TODO make a way to input and track incomes
@@ -18,14 +16,67 @@ const expenseSubmit = document.getElementById('expense-submit');
 expenseSubmit.addEventListener("click", function(event) {
     event.preventDefault;
 
-    // get required elements
+    console.log("get required elements")
     const expenseDate = document.getElementById('expense-date');
     const expenseSource = document.getElementById('expense-source');
     const expenseAmount = document.getElementById('expense-amount');
     const expenseCategory = document.getElementById('expense-category');
+    const expenseTable = document.getElementById('expense-table');
 
     // get the values from the form
     const date = expenseDate.value;
+    const source = expenseSource.value;
+    const amount = expenseAmount.value;
+    const category = expenseCategory.value;
+
+    // reset the values in the form
+    expenseDate.value = '';
+    expenseSource.value = '';
+    expenseAmount.value = '';
+    expenseCategory.value = '';
+
+    // Create a new row
+    const row = document.createElement('tr');
+
+    // Create ellse for the row
+    const cell1 = document.createElement('td');
+    const cell2 = document.createElement('td');
+    const cell3 = document.createElement('td');
+    const cell4 = document.createElement('td');
+    const cell5 = document.createElement('td');
+    const removeButton = document.createElement('button');
+
+    // Add the values from the form to the cells
+    cell1.textContent = date;
+    cell2.textContent = source;
+    cell3.textContent = amount;
+    cell4.textContent = category;
+    removeButton.className = "remove-button";
+    removeButton.textContent = '🗑';
+
+    removeButton.addEventListener('click', function(e) {
+        // Select the row where the remove button is located
+        const row = e.target.parentElement.parentElement;
+
+        // Remove the row from the table
+        row.parentElement.removeChild(row);
+
+        // Update the running sum
+        amountSum(expenseTable, 'expense-total', 2);
+    })
+
+    // Add the cells and button to the new row
+    cell5.appendChild(removeButton);
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+    row.appendChild(cell4);
+    row.appendChild(cell5);
+
+    // Add the row to the table
+    expenseTable.appendChild(row);
+
+    amountSum(expenseTable, 'expense-total', 2);
 })
 
 // Retrieves the income information provided by user from the form
