@@ -16,67 +16,32 @@ const expenseSubmit = document.getElementById('expense-submit');
 expenseSubmit.addEventListener("click", function(event) {
     event.preventDefault;
 
+    const expenseAmount = document.getElementById('expense-amount');
+    const validCurrency = verifyCurrency(expenseAmount.value)
+
+    // Add bubble explaining error and use visibility to hide it
+    if (!validCurrency) {
+        return;
+    }
+
     // get required elements
     const expenseDate = document.getElementById('expense-date');
     const expenseSource = document.getElementById('expense-source');
-    const expenseAmount = document.getElementById('expense-amount');
     const expenseCategory = document.getElementById('expense-category');
     const expenseTable = document.getElementById('expense-table');
 
     // get the values from the form
-    const date = expenseDate.value;
-    const source = expenseSource.value;
-    const amount = expenseAmount.value;
-    const category = expenseCategory.value;
+    const inputArray = [expenseDate, expenseSource, expenseAmount, expenseCategory];
 
-    // reset the values in the form
-    expenseDate.value = '';
-    expenseSource.value = '';
-    expenseAmount.value = '';
-    expenseCategory.value = '';
-
-    // Create a new row
-    const row = document.createElement('tr');
-
-    // Create ellse for the row
-    const cell1 = document.createElement('td');
-    const cell2 = document.createElement('td');
-    const cell3 = document.createElement('td');
-    const cell4 = document.createElement('td');
-    const cell5 = document.createElement('td');
-    const removeButton = document.createElement('button');
-
-    // Add the values from the form to the cells
-    cell1.textContent = date;
-    cell2.textContent = source;
-    cell3.textContent = amount;
-    cell4.textContent = category;
-    removeButton.className = "remove-button";
-    removeButton.textContent = '🗑';
-
-    removeButton.addEventListener('click', function(e) {
-        // Select the row where the remove button is located
-        const row = e.target.parentElement.parentElement;
-
-        // Remove the row from the table
-        row.parentElement.removeChild(row);
-
-        // Update the running sum
-        amountSum(expenseTable, 'expense-total', 2);
-    })
-
-    // Add the cells and button to the new row
-    cell5.appendChild(removeButton);
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    row.appendChild(cell3);
-    row.appendChild(cell4);
-    row.appendChild(cell5);
+    // Create the new row with data
+    row = newRow(inputArray, () => newRemoveButton(expenseTable, 'expense-total', 2));
 
     // Add the row to the table
     expenseTable.appendChild(row);
 
     amountSum(expenseTable, 'expense-total', 2);
+
+    clearInputs(inputArray);
 })
 
 // Retrieves the income information provided by user from the form
@@ -91,25 +56,53 @@ incomeSubmit.addEventListener("click", function(event) {
     const incomeTable = document.getElementById('income-table');
 
     // Get the values of the form
-    const source = incomeSource.value;
-    const amount = incomeAmount.value;
+    const inputArray = [incomeSource, incomeAmount];
+
+    // Create new row with data
+    row = newRow(inputArray, () => newRemoveButton(incomeTable, 'income-total', 1));
+
+    // Add the new row to the table
+    incomeTable.appendChild(row);
+
+    amountSum(incomeTable, 'income-total', 1);
 
     // Clear out the input form
-    incomeSource.value = "";
-    incomeAmount.value = "";
+    clearInputs(inputArray);
+})
 
+// Makes a new row with input values and remove button to be appended to a table
+function newRow (inputArray, removeButton) {
     // Create a new row
     const row = document.createElement('tr');
+    
+    // Add cells with data
+    for (let y = 0; y < inputArray.length; y++) {
+        newestCell = newCell(inputArray[y].value);
+        row.appendChild(newestCell);
+    }
+    
+    // Add a remove button cell
+    row.appendChild(removeButton());
 
-    // Create cells for the row
-    const cell1 = document.createElement('td');
-    const cell2 = document.createElement('td');
-    const cell3 = document.createElement('td');
+    return row;
+}
+
+// Makes a new cell with text
+function newCell (data) {
+    // Create a new cell
+    const cell = document.createElement('td');
+
+    // add the contents of the cell
+    cell.textContent = data;
+
+    return cell;
+}
+
+// Creates a button that will remove a row from the specified table
+function newRemoveButton (table, totalField, sumCol) {
     const removeButton = document.createElement('button');
-
-    // Add the values from the form to the cells
-    cell1.textContent = source;
-    cell2.textContent = amount;
+    const cell = document.createElement('td');
+    
     removeButton.className = "remove-button";
     removeButton.textContent = '🗑';
 
@@ -121,21 +114,23 @@ incomeSubmit.addEventListener("click", function(event) {
         row.parentElement.removeChild(row);
 
         // Update the running sum
-        amountSum(incomeTable, 'income-total', 1);
+        amountSum(table, totalField, sumCol);
     })
 
-    // Add the cells and button to the row
-    cell3.appendChild(removeButton);
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    row.appendChild(cell3);
+    cell.appendChild(removeButton);
 
-    // Add the new row to the table
-    incomeTable.appendChild(row);
+    return cell;
+}
 
-    amountSum(incomeTable, 'income-total', 1);
-})
+// Clears any inputs
+function clearInputs (inputArray) {
+    // clear all input fields in the array
+    for (let x = 0; x < inputArray.length; x++) {
+        inputArray[x].value = "";
+    }
+}
 
+// Adds the amounts within the specified column in the table and returns the sum
 function amountSum (table, totalLocation, sumCol) {
     // Get the required rows from the table and the total line
     const rows = table.getElementsByTagName('tr');
@@ -147,17 +142,24 @@ function amountSum (table, totalLocation, sumCol) {
 
     // move through the column to sum up
     for (let i = 1; i < rows.length; i++) {
+        // Get the row
         const cells = rows[i].getElementsByTagName('td');
 
+        // Get the Amount cell
         const cell = cells[sumCol];
         
+        // Add the value to the sum
         sum += parseInt(cell.textContent);
     }
 
+    // TODO change the text to whichever total is being calculated
+    // TODO allow the sum to have 2 decimal points
     // display the new sum on the total line
     total.textContent = "Total Income: $" + sum;
 }
 
-function verifyCurrency () {
+function verifyCurrency (value) {
     const regex = /^\d+(\.\d{1,2})?$/;
+
+    return regex.test(value)
 }
