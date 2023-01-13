@@ -16,7 +16,7 @@ const expenseSubmit = document.getElementById('expense-submit');
 expenseSubmit.addEventListener("click", function(event) {
     event.preventDefault;
 
-    console.log("get required elements")
+    // get required elements
     const expenseDate = document.getElementById('expense-date');
     const expenseSource = document.getElementById('expense-source');
     const expenseAmount = document.getElementById('expense-amount');
